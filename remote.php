@@ -23,43 +23,43 @@ if (!function_exists('my_exec')) {
 if (!isset($cmd)) {
 	if (!isset($argv[0])) die('Shell or include only');
 
-	$script_name=array_shift($argv);//имя скрипта
+	$script_name=array_shift($argv);//РёРјСЏ СЃРєСЂРёРїС‚Р°
 
-	$cmd=array_shift($argv); //берём имя команды (copy, ssh, batch, ...)
+	$cmd=array_shift($argv); //Р±РµСЂС‘Рј РёРјСЏ РєРѕРјР°РЅРґС‹ (copy, ssh, batch, ...)
 
 	$tmp_local_path='/var/tmp/';
 
-	//возьмем аргументы соответственно каждой команде
+	//РІРѕР·СЊРјРµРј Р°СЂРіСѓРјРµРЅС‚С‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕ РєР°Р¶РґРѕР№ РєРѕРјР°РЅРґРµ
 	switch ($cmd) {
 	case 'batch':
 		if (!isset($argv[1])) die("batch batch_file to_srv1 .. [ok]\n");
-	$batch_file=array_shift($argv);//берем файл, в котором должен быть список команд
+	$batch_file=array_shift($argv);//Р±РµСЂРµРј С„Р°Р№Р», РІ РєРѕС‚РѕСЂРѕРј РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЃРїРёСЃРѕРє РєРѕРјР°РЅРґ
 		break;
 	case 'copy':
 	case 'copyto':
 		if (!isset($argv[2])) die("copy from_local_path to_remote_path to_srv1 to_srv2 ...[ok]\n");
-	$from_local_path=array_shift($argv);//берём локальный путь, который будем копировать
-	$to_remote_path=array_shift($argv); //берём ремотный путь, куда будем копировать
+	$from_local_path=array_shift($argv);//Р±РµСЂС‘Рј Р»РѕРєР°Р»СЊРЅС‹Р№ РїСѓС‚СЊ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµРј РєРѕРїРёСЂРѕРІР°С‚СЊ
+	$to_remote_path=array_shift($argv); //Р±РµСЂС‘Рј СЂРµРјРѕС‚РЅС‹Р№ РїСѓС‚СЊ, РєСѓРґР° Р±СѓРґРµРј РєРѕРїРёСЂРѕРІР°С‚СЊ
 		break;
 	case 'from':
 	case 'copyfrom':
 		if (!isset($argv[2])) die("from from_remote_path to_local_path from_srv1 ...[ok]\n");
-	$from_remote_path=array_shift($argv);//берем удаленный путь, с которого будем копировать
-	$to_local_path=array_shift($argv);//берем локальный путь, куда будем копирвать
+	$from_remote_path=array_shift($argv);//Р±РµСЂРµРј СѓРґР°Р»РµРЅРЅС‹Р№ РїСѓС‚СЊ, СЃ РєРѕС‚РѕСЂРѕРіРѕ Р±СѓРґРµРј РєРѕРїРёСЂРѕРІР°С‚СЊ
+	$to_local_path=array_shift($argv);//Р±РµСЂРµРј Р»РѕРєР°Р»СЊРЅС‹Р№ РїСѓС‚СЊ, РєСѓРґР° Р±СѓРґРµРј РєРѕРїРёСЂРІР°С‚СЊ
 		if ($to_local_path=='=') $to_local_path=$tmp_local_path;
 		break;
 	case 'ssh':
 		if (!isset($argv[1])) die('ssh "command line" to_srv1 to_srv2 ...[ok]'."\n");
-	$ssh_cmd=array_shift($argv);//берём ssh-команду, которую следует удаленн исполнить
+	$ssh_cmd=array_shift($argv);//Р±РµСЂС‘Рј ssh-РєРѕРјР°РЅРґСѓ, РєРѕС‚РѕСЂСѓСЋ СЃР»РµРґСѓРµС‚ СѓРґР°Р»РµРЅРЅ РёСЃРїРѕР»РЅРёС‚СЊ
 		break;
 	default:
 		echo "Unknowing command: $cmd\n\nPossible command: copy, ssh, batch\n";
 		print_r($argv);
 		die;
 	}
-	//теперь в $argv должен остаться список имен хостов, куда будем копировать.
+	//С‚РµРїРµСЂСЊ РІ $argv РґРѕР»Р¶РµРЅ РѕСЃС‚Р°С‚СЊСЃСЏ СЃРїРёСЃРѕРє РёРјРµРЅ С…РѕСЃС‚РѕРІ, РєСѓРґР° Р±СѓРґРµРј РєРѕРїРёСЂРѕРІР°С‚СЊ.
 
-	include 'ad_config.php';//отсюда нужен только массив $frontend[$ip]=$front
+	include 'ad_config.php';//РѕС‚СЃСЋРґР° РЅСѓР¶РµРЅ С‚РѕР»СЊРєРѕ РјР°СЃСЃРёРІ $frontend[$ip]=$front
 	
 	$front_do_arr=get_fronts_from_argv();
 	if (is_array($front_do_arr)) {
@@ -117,13 +117,13 @@ case 'batch':
 	break;
 case 'copy':
 case 'copyto':
-	//проверим, существует ли локальный путь, с которого надо копировать
+	//РїСЂРѕРІРµСЂРёРј, СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё Р»РѕРєР°Р»СЊРЅС‹Р№ РїСѓС‚СЊ, СЃ РєРѕС‚РѕСЂРѕРіРѕ РЅР°РґРѕ РєРѕРїРёСЂРѕРІР°С‚СЊ
 	$its_file=is_file($from_local_path);
 	$its_path=is_dir($from_local_path);
 	if ($its_file) echo "Copy file $from_local_path to remote servers:\n";
 	if ($its_path) echo "Copy path $from_local_path to remote servers:\n";
 	if (!$its_file && !$its_path) die("Not found source path $from_local_path\n");
-	//если локальный путь есть, пробуем запустить цикл копирования
+	//РµСЃР»Рё Р»РѕРєР°Р»СЊРЅС‹Р№ РїСѓС‚СЊ РµСЃС‚СЊ, РїСЂРѕР±СѓРµРј Р·Р°РїСѓСЃС‚РёС‚СЊ С†РёРєР» РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	foreach($front_do_arr as $front) {
 		$fr_ip=$front_ip[$front];
 		if ($its_path) $ins=" -r "; else $ins='';
@@ -137,7 +137,7 @@ case 'copyto':
 	break;
 case 'copyfrom':
 case 'from':
-	//проверим, существует ли локальный путь, в который надо копировать
+	//РїСЂРѕРІРµСЂРёРј, СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё Р»РѕРєР°Р»СЊРЅС‹Р№ РїСѓС‚СЊ, РІ РєРѕС‚РѕСЂС‹Р№ РЅР°РґРѕ РєРѕРїРёСЂРѕРІР°С‚СЊ
 	if (substr($to_local_path,-1)!='/') $to_local_path.='/';
 	if (!is_dir($to_local_path)) die ("Not found local_path='$to_local_path'\n");
 	foreach($front_do_arr as $front) {
